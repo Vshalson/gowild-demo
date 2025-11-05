@@ -949,7 +949,7 @@ const GoWildComprehensiveDemo = () => {
           </div>
         </div>
 
-        {/* Revenue Recovery Calculator */}
+      {/* Revenue Recovery Calculator */}
         <div className="bg-gradient-to-br from-red-900 to-red-800 rounded-2xl p-10 text-white mb-12">
           <h2 className="text-3xl font-black mb-6 text-center">
             您已经损失了多少？
@@ -959,25 +959,37 @@ const GoWildComprehensiveDemo = () => {
           </p>
 
           <div className="grid grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div>
+          <div>
               <label className="block text-sm font-semibold mb-2">每月营销预算 (¥)</label>
+              {/* Added ID */}
               <input
+                id="monthlyBudgetInput"
                 type="number"
                 placeholder="例如：15000"
                 className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg"
                 onChange={(e) => {
                   const budget = parseInt(e.target.value) || 0;
-                  const loss = budget * 0.27 * 6; // 6 months
+                  const months = parseInt(document.getElementById('timePeriodSelect').value);
+                  const loss = budget * 0.27 * months;
                   setCalculatedLoss(loss);
                 }}
               />
             </div>
             <div>
               <label className="block text-sm font-semibold mb-2">时间周期</label>
-              <select className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg">
-                <option>过去 6 个月</option>
-                <option>过去 12 个月</option>
-                <option>过去 24 个月</option>
+              <select 
+                id="timePeriodSelect" 
+                className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg"
+                onChange={(e) => {
+                  const budget = parseInt(document.getElementById('monthlyBudgetInput').value) || 0;
+                  const months = parseInt(e.target.value);
+                  const loss = budget * 0.27 * months;
+                  setCalculatedLoss(loss);
+                }}
+              >
+                <option value="6">过去 6 个月</option>
+                <option value="12">过去 12 个月</option>
+                <option value="24">过去 24 个月</option>
               </select>
             </div>
           </div>
@@ -994,7 +1006,6 @@ const GoWildComprehensiveDemo = () => {
             </div>
           )}
         </div>
-
         {/* Final CTA */}
         <div className="text-center">
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
