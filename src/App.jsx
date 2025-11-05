@@ -1,7 +1,10 @@
-const { useState, useEffect, useRef } = React;
+import React, { useState, useEffect, useRef } from 'react';
+// Note: Chart.js is assumed to be available globally from the environment or can be imported 
+// if using a standard React build system. For this single-file environment, we will 
+// assume the surrounding environment provides necessary dependencies like React/ReactDOM.
 
-// Simple Icon Components (inline SVG)
-// ... [Icon components remain unchanged] ...
+// --- Icon Components (Lucide-React equivalents via Inline SVG) ---
+
 const TrendingDown = ({ className = "", size = 24 }) => (
   <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
@@ -118,7 +121,8 @@ const Unlock = ({ className = "", size = 24 }) => (
   </svg>
 );
 
-// Fake Douyin user behavioral data
+// --- Data Definitions ---
+
 const fakeUsers = [
   {
     id: "DY_847392",
@@ -181,7 +185,45 @@ const traditionalCampaignData = {
   roi: 0.73
 };
 
-const GoWildComprehensiveDemo = () => {
+const actionTranslations = { 
+  "watch_video": "观看视频", 
+  "like": "点赞", 
+  "share": "分享", 
+  "click_shop": "点击购物", 
+  "view_product": "查看商品", 
+  "add_cart": "加入购物车", 
+  "cart_abandon": "放弃购物车", 
+  "purchase": "购买", 
+  "close_app": "关闭应用", 
+  "comment": "评论", 
+  "follow": "关注" 
+};
+
+const signalTranslations = { 
+  "water_sports": "水上运动", 
+  "high_engagement": "高参与度", 
+  "social_influence": "社交影响", 
+  "purchase_intent": "购买意图", 
+  "price_consideration": "价格考量", 
+  "strong_intent": "强烈意图", 
+  "trust_barrier": "信任障碍", 
+  "casual_browse": "随意浏览", 
+  "promotion_trigger": "促销触发", 
+  "impulse_trigger": "冲动触发", 
+  "conversion": "转化", 
+  "quick_exit": "快速退出", 
+  "high_watch_time": "高观看时长", 
+  "engagement": "参与", 
+  "social_engagement": "社交参与", 
+  "continued_interest": "持续兴趣", 
+  "brand_awareness": "品牌认知", 
+  "no_purchase_intent": "无购买意图" 
+};
+
+
+// --- Main Component ---
+
+const App = () => {
   const [currentAct, setCurrentAct] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
   const [playingTimeline, setPlayingTimeline] = useState(false);
@@ -214,7 +256,8 @@ const GoWildComprehensiveDemo = () => {
 
   const startDemo = () => {
     setCurrentAct(2);
-    setSelectedUser(fakeUsers[0]);
+    // Automatically select the first user (Adventurer) for the demo start
+    setSelectedUser(fakeUsers[0]); 
     setTimeout(() => {
       setPlayingTimeline(true);
     }, 1000);
@@ -231,44 +274,49 @@ const GoWildComprehensiveDemo = () => {
     setPlayingTimeline(false);
   };
 
-  // Translation maps for dynamic content in Act 2
-  const actionTranslations = { 
-    "watch_video": "观看视频", 
-    "like": "点赞", 
-    "share": "分享", 
-    "click_shop": "点击购物", 
-    "view_product": "查看商品", 
-    "add_cart": "加入购物车", 
-    "cart_abandon": "放弃购物车", 
-    "purchase": "购买", 
-    "close_app": "关闭应用", 
-    "comment": "评论", 
-    "follow": "关注" 
-  };
-  
-  const signalTranslations = { 
-    "water_sports": "水上运动", 
-    "high_engagement": "高参与度", 
-    "social_influence": "社交影响", 
-    "purchase_intent": "购买意图", 
-    "price_consideration": "价格考量", 
-    "strong_intent": "强烈意图", 
-    "trust_barrier": "信任障碍", 
-    "casual_browse": "随意浏览", 
-    "promotion_trigger": "促销触发", 
-    "impulse_trigger": "冲动触发", 
-    "conversion": "转化", 
-    "quick_exit": "快速退出", 
-    "high_watch_time": "高观看时长", 
-    "engagement": "参与", 
-    "social_engagement": "社交参与", 
-    "continued_interest": "持续兴趣", 
-    "brand_awareness": "品牌认知", 
-    "no_purchase_intent": "无购买意图" 
+  // Function to handle the loss calculation based on inputs in Act 3
+  const handleLossCalculation = () => {
+    const monthlyBudgetInput = document.getElementById('monthlyBudgetInput');
+    const timePeriodSelect = document.getElementById('timePeriodSelect');
+    
+    if (monthlyBudgetInput && timePeriodSelect) {
+      const budget = parseInt(monthlyBudgetInput.value) || 0;
+      const months = parseInt(timePeriodSelect.value) || 0;
+      // Using 27% loss factor as calculated in the original logic (1 - 0.73 ROI)
+      const loss = budget * 0.27 * months; 
+      setCalculatedLoss(loss);
+    }
   };
 
+
   const renderAct1 = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden font-inter">
+      {/* Custom Styles/Keyframes for effects */}
+      <style>{`
+        .gradient-text {
+            background-image: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px #f87171, 0 0 10px #f87171; }
+            50% { box-shadow: 0 0 15px #ef4444, 0 0 25px #ef4444; }
+        }
+        .pulse-glow { animation: pulse-glow 2s infinite alternate; }
+
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-up { animation: slide-up 0.8s ease-out forwards; }
+
+        .glow-border { box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+
+        /* Ensure font-inter is used globally */
+        .font-inter { font-family: 'Inter', sans-serif; }
+      `}</style>
+      
       {/* Background animated grid */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -277,42 +325,42 @@ const GoWildComprehensiveDemo = () => {
         }}></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 py-16">
         {/* Header */}
         <div className="text-center mb-16 slide-up">
           <div className="inline-block bg-red-600 text-white px-6 py-2 rounded-full font-bold text-xl mb-6 pulse-glow">
             ⚠️ 严重警报
           </div>
-          <h1 className="text-6xl font-black mb-6">
+          <h1 className="text-5xl sm:text-6xl font-black mb-6">
             <span className="gradient-text">南通难题</span>
           </h1>
-          <p className="text-2xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-slate-300 max-w-3xl mx-auto">
             当您熟睡时, 您的营销预算正在 <span className="text-red-400 font-bold">燃烧</span>
           </p>
         </div>
 
         {/* Money Burning Visual */}
-        <div className="bg-slate-800 rounded-2xl p-8 border border-red-500 glow-border mb-12 slide-up" style={{ animationDelay: '0.2s' }}>
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold mb-2 flex items-center">
+        <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 border border-red-500 glow-border mb-12 slide-up" style={{ animationDelay: '0.2s' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
+            <div className="text-center sm:text-left mb-4 sm:mb-0">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex items-center justify-center sm:justify-start">
                 <TrendingDown className="mr-3 text-red-500" size={32} />
                 您的上一次营销活动：事后分析
               </h2>
               <p className="text-slate-400">三线城市的传统网红营销</p>
             </div>
-            <div className="text-right">
-              <div className="text-5xl font-black text-red-500">¥{moneyBurning * 148}</div>
+            <div className="text-center sm:text-right">
+              <div className="text-4xl sm:text-5xl font-black text-red-500">¥{moneyBurning * 148}</div>
               <div className="text-sm text-slate-400">已烧掉的钱 (还在增加...)</div>
             </div>
           </div>
 
           {/* Influencer Campaign Results */}
-          <div className="grid grid-cols-5 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
             {traditionalCampaignData.influencers.map((influencer, idx) => (
               <div key={idx} className="bg-slate-900 rounded-lg p-4 border border-slate-700 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full flex items-center justify-center opacity-20">
-                  <TrendingDown size={96} className="text-red-500" />
+                  <TrendingDown size={72} className="text-red-500" />
                 </div>
                 <div className="relative z-10">
                   <div className="text-xs text-slate-500 mb-2 truncate">{influencer.name}</div>
@@ -338,50 +386,50 @@ const GoWildComprehensiveDemo = () => {
           </div>
 
           {/* Damning Statistics */}
-          <div className="grid grid-cols-4 gap-6">
-            <div className="bg-red-950 border border-red-800 rounded-lg p-6">
-              <div className="text-sm text-red-400 mb-2">总浪费</div>
-              <div className="text-4xl font-black text-red-500">¥14,800</div>
-              <div className="text-xs text-red-400 mt-2">在重复内容上</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="bg-red-950 border border-red-800 rounded-lg p-4 sm:p-6 text-center">
+              <div className="text-xs sm:text-sm text-red-400 mb-1 sm:mb-2">总浪费</div>
+              <div className="text-2xl sm:text-4xl font-black text-red-500">¥14,800</div>
+              <div className="text-xs text-red-400 mt-1 sm:mt-2">在重复内容上</div>
             </div>
-            <div className="bg-red-950 border border-red-800 rounded-lg p-6">
-              <div className="text-sm text-red-400 mb-2">转化率</div>
-              <div className="text-4xl font-black text-red-500">1.2%</div>
-              <div className="text-xs text-red-400 mt-2">98.8% 的无效触达</div>
+            <div className="bg-red-950 border border-red-800 rounded-lg p-4 sm:p-6 text-center">
+              <div className="text-xs sm:text-sm text-red-400 mb-1 sm:mb-2">转化率</div>
+              <div className="text-2xl sm:text-4xl font-black text-red-500">1.2%</div>
+              <div className="text-xs text-red-400 mt-1 sm:mt-2">98.8% 的无效触达</div>
             </div>
-            <div className="bg-red-950 border border-red-800 rounded-lg p-6">
-              <div className="text-sm text-red-400 mb-2">核销率</div>
-              <div className="text-4xl font-black text-red-500">28%</div>
-              <div className="text-xs text-red-400 mt-2">72% 的人从未到场</div>
+            <div className="bg-red-950 border border-red-800 rounded-lg p-4 sm:p-6 text-center">
+              <div className="text-xs sm:text-sm text-red-400 mb-1 sm:mb-2">核销率</div>
+              <div className="text-2xl sm:text-4xl font-black text-red-500">28%</div>
+              <div className="text-xs text-red-400 mt-1 sm:mt-2">72% 的人从未到场</div>
             </div>
-            <div className="bg-red-950 border border-red-800 rounded-lg p-6">
-              <div className="text-sm text-red-400 mb-2">投资回报率</div>
-              <div className="text-4xl font-black text-red-500">0.73x</div>
-              <div className="text-xs text-red-400 mt-2">损失 ¥4,000</div>
+            <div className="bg-red-950 border border-red-800 rounded-lg p-4 sm:p-6 text-center">
+              <div className="text-xs sm:text-sm text-red-400 mb-1 sm:mb-2">投资回报率</div>
+              <div className="text-2xl sm:text-4xl font-black text-red-500">0.73x</div>
+              <div className="text-xs text-red-400 mt-1 sm:mt-2">损失 ¥4,000</div>
             </div>
           </div>
         </div>
 
         {/* The Problem Statement */}
-        <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700 mb-12 slide-up" style={{ animationDelay: '0.4s' }}>
-          <h3 className="text-2xl font-bold mb-6 flex items-center">
+        <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-700 mb-12 slide-up" style={{ animationDelay: '0.4s' }}>
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 flex items-center">
             <AlertCircle className="mr-3 text-amber-500" size={24} />
             为什么会这样？
           </h3>
-          <div className="grid grid-cols-3 gap-6">
-            <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
               <div className="text-amber-500 font-bold">问题 #1：盲目定位</div>
               <div className="text-slate-400 text-sm">
                 您在向只想看视频的人展示水上运动内容。没有行为洞察 = 没有精准度。
               </div>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="text-amber-500 font-bold">问题 #2：内容同质化</div>
               <div className="text-slate-400 text-sm">
                 每个网红都用同一个模板。“这个太好玩了！” 客户已经审美疲劳了。
               </div>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="text-amber-500 font-bold">问题 #3：零智能</div>
               <div className="text-slate-400 text-sm">
                 您无法判断谁会真正转化、谁会核销、谁是高价值用户。纯粹在赌博。
@@ -392,14 +440,14 @@ const GoWildComprehensiveDemo = () => {
 
         {/* The Hook */}
         <div className="text-center slide-up" style={{ animationDelay: '0.6s' }}>
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 mb-8">
-            <h2 className="text-4xl font-black mb-4">如果您能看透他们的想法呢？</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 sm:p-12 mb-8">
+            <h2 className="text-3xl sm:text-4xl font-black mb-4">如果您能看透他们的想法呢？</h2>
+            <p className="text-lg sm:text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               如果每个用户的购买意图、信任水平和核销概率都能 <span className="font-bold text-white">实时可见</span> 呢？
             </p>
             <button
               onClick={startDemo}
-              className="bg-white text-blue-600 px-12 py-6 rounded-xl font-bold text-xl hover:bg-blue-50 transition-all transform hover:scale-105 shadow-2xl inline-flex items-center"
+              className="bg-white text-blue-600 px-8 sm:px-12 py-4 sm:py-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-blue-50 transition-all transform hover:scale-105 shadow-2xl inline-flex items-center"
             >
               <Eye className="mr-3" size={24} />
               向我展示智能分析
@@ -413,26 +461,55 @@ const GoWildComprehensiveDemo = () => {
       </div>
     </div>
   );
+  
   const renderAct2 = () => (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-slate-900 text-white font-inter">
+      {/* Custom Styles/Keyframes */}
+      <style>{`
+        @keyframes signal-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 211, 163, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 211, 163, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 211, 163, 0); }
+        }
+        .signal-pulse { animation: signal-pulse 2s infinite; }
+
+        @keyframes slide-up-fast {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-up { animation: slide-up-fast 0.3s ease-out forwards; }
+
+        /* Scrollbar styling for dark mode */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background-color: #475569; /* slate-600 */
+            border-radius: 4px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background-color: #1e293b; /* slate-800 */
+        }
+      `}</style>
+
       {/* Header */}
-      <div className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-8 py-4">
+      <div className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full font-bold text-xl">
                 GoWild
               </div>
-              <div className="h-6 w-px bg-slate-600"></div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:block h-6 w-px bg-slate-600"></div>
+              <div className="hidden sm:flex items-center space-x-2">
                 <Activity className="text-green-500 signal-pulse" size={20} />
                 <span className="text-slate-300 font-medium">AI 洞察：启动</span>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <button
                 onClick={() => setShowAIVision(!showAIVision)}
-                className={`px-4 py-2 rounded-lg font-semibold transition-all flex items-center ${
+                className={`px-3 py-1 sm:px-4 sm:py-2 rounded-lg font-semibold transition-all flex items-center text-sm ${
                   showAIVision 
                     ? 'bg-blue-600 text-white' 
                     : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
@@ -443,7 +520,7 @@ const GoWildComprehensiveDemo = () => {
               </button>
               <button
                 onClick={() => setCurrentAct(3)}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-all"
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 sm:px-6 sm:py-2 rounded-lg font-semibold transition-all text-sm sm:text-base"
               >
                 查看营销结果 →
               </button>
@@ -452,27 +529,27 @@ const GoWildComprehensiveDemo = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         {/* Title Section */}
         <div className="mb-8">
-          <h1 className="text-4xl font-black mb-3 flex items-center">
-            <Sparkles className="mr-4 text-amber-500" size={40} />
+          <h1 className="text-3xl sm:text-4xl font-black mb-3 flex items-center">
+            <Sparkles className="mr-3 sm:mr-4 text-amber-500" size={32} sm:size={40} />
             实时行为智能剧场
           </h1>
-          <p className="text-xl text-slate-400">
+          <p className="text-lg sm:text-xl text-slate-400">
             实时观看“偏好捕获算法”解码真实的抖音用户行为
           </p>
         </div>
 
         {/* User Selection */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {fakeUsers.map((user, idx) => (
             <button
               key={user.id}
               onClick={() => selectUserForAnalysis(user)}
-              className={`p-6 rounded-xl border-2 transition-all text-left ${
+              className={`p-4 sm:p-6 rounded-xl border-2 transition-all text-left ${
                 selectedUser?.id === user.id
-                  ? 'bg-blue-900 border-blue-500 glow-border'
+                  ? 'bg-blue-900 border-blue-500 shadow-xl'
                   : 'bg-slate-800 border-slate-700 hover:border-slate-600'
               }`}
             >
@@ -481,7 +558,7 @@ const GoWildComprehensiveDemo = () => {
                   <div className="text-sm text-slate-500 mb-1">{user.id}</div>
                   <div className="text-lg font-bold text-white">{user.segment}</div>
                 </div>
-                <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                <div className={`px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 ${
                   user.prediction.willConvert 
                     ? 'bg-green-900 text-green-300' 
                     : 'bg-red-900 text-red-300'
@@ -497,9 +574,9 @@ const GoWildComprehensiveDemo = () => {
         </div>
 
         {selectedUser && (
-          <div className="grid grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left: Timeline Player */}
-            <div className="col-span-7 space-y-4">
+            <div className="lg:col-span-7 space-y-4">
               {/* Timeline Controls */}
               <div className="bg-slate-800 rounded-xl p-4 border border-slate-700 flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -526,15 +603,16 @@ const GoWildComprehensiveDemo = () => {
               </div>
 
               {/* Timeline Events */}
-              <div className="bg-slate-800 rounded-xl border border-slate-700 p-6 space-y-3 max-h-[600px] overflow-y-auto">
+              <div className="bg-slate-800 rounded-xl border border-slate-700 p-4 sm:p-6 space-y-3 max-h-[600px] overflow-y-auto">
                 {selectedUser.timeline.slice(0, timelineIndex + 1).map((event, idx) => (
                   <div
                     key={idx}
                     className="bg-slate-900 rounded-lg p-4 border border-slate-700 slide-up"
+                    style={{animationDelay: `${idx * 0.1}s`}}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center space-x-3">
-                        <div className={`w-3 h-3 rounded-full ${
+                        <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
                           event.score > 0.7 ? 'bg-green-500' :
                           event.score > 0.4 ? 'bg-amber-500' :
                           event.score > 0 ? 'bg-blue-500' : 'bg-red-500'
@@ -547,7 +625,7 @@ const GoWildComprehensiveDemo = () => {
                         </div>
                       </div>
                       {showAIVision && (
-                        <div className="text-right">
+                        <div className="text-right flex-shrink-0">
                           <div className="text-xs text-slate-500">信号强度</div>
                           <div className={`text-lg font-bold ${
                             event.score > 0.7 ? 'text-green-400' :
@@ -562,8 +640,8 @@ const GoWildComprehensiveDemo = () => {
                     <div className="text-sm text-slate-400 mb-2">{event.content}</div>
                     {showAIVision && (
                       <div className="mt-3 pt-3 border-t border-slate-700">
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="text-blue-400 font-mono">
+                        <div className="flex flex-wrap items-center justify-between text-xs">
+                          <span className="text-blue-400 font-mono mb-1 sm:mb-0">
                             🧠 AI 信号: {signalTranslations[event.signal] || event.signal.replace(/_/g, ' ').toUpperCase()}
                           </span>
                           {event.duration && (
@@ -580,7 +658,7 @@ const GoWildComprehensiveDemo = () => {
             </div>
 
             {/* Right: AI Analysis Panel */}
-            <div className="col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-4">
               {/* DNA Profile */}
               <div className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-xl p-6 border border-blue-700">
                 <h3 className="text-lg font-bold mb-4 flex items-center">
@@ -588,54 +666,31 @@ const GoWildComprehensiveDemo = () => {
                   数字行为 DNA
                 </h3>
                 <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-slate-300">购买意图</span>
-                      <span className="text-white font-bold">{selectedUser.dna.purchaseIntent}%</span>
-                    </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-1000"
-                        style={{ width: `${selectedUser.dna.purchaseIntent}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-slate-300">参与水平</span>
-                      <span className="text-white font-bold">{selectedUser.dna.engagement}%</span>
-                    </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
-                        style={{ width: `${selectedUser.dna.engagement}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-slate-300">信任水平</span>
-                      <span className="text-white font-bold">{selectedUser.dna.trustLevel}%</span>
-                    </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-1000"
-                        style={{ width: `${selectedUser.dna.trustLevel}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-slate-300">价格敏感度</span>
-                      <span className="text-white font-bold">{selectedUser.dna.priceResistance}%</span>
-                    </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-red-500 to-red-700 transition-all duration-1000"
-                        style={{ width: `${selectedUser.dna.priceResistance}%` }}
-                      ></div>
-                    </div>
-                  </div>
+                  {Object.entries(selectedUser.dna).map(([key, value]) => {
+                    let label = "";
+                    let colorClass = "";
+                    switch (key) {
+                      case 'purchaseIntent': label = '购买意图'; colorClass = 'from-blue-500 to-green-500'; break;
+                      case 'engagement': label = '参与水平'; colorClass = 'from-purple-500 to-pink-500'; break;
+                      case 'trustLevel': label = '信任水平'; colorClass = 'from-amber-500 to-orange-500'; break;
+                      case 'priceResistance': label = '价格敏感度'; colorClass = 'from-red-500 to-red-700'; break;
+                      default: label = key; colorClass = 'from-slate-500 to-slate-500';
+                    }
+                    return (
+                      <div key={key}>
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="text-slate-300">{label}</span>
+                          <span className="text-white font-bold">{value}%</span>
+                        </div>
+                        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full bg-gradient-to-r ${colorClass} transition-all duration-1000`}
+                            style={{ width: `${value}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -690,11 +745,12 @@ const GoWildComprehensiveDemo = () => {
       </div>
     </div>
   );
+  
   const renderAct3 = () => (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-inter">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full font-bold text-xl">
@@ -707,23 +763,23 @@ const GoWildComprehensiveDemo = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12">
         {/* Title */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-black text-slate-900 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-4">
             差异是 <span className="gradient-text">惊人的</span>
           </h1>
-          <p className="text-2xl text-slate-600">
+          <p className="text-xl sm:text-2xl text-slate-600">
             相同的预算。相同的市场。截然不同的智能。
           </p>
         </div>
 
         {/* Side-by-Side Comparison */}
-        <div className="grid grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Traditional Campaign */}
-          <div className="bg-white rounded-2xl border-2 border-red-300 p-8">
+          <div className="bg-white rounded-2xl border-2 border-red-300 p-6 sm:p-8 shadow-lg">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-slate-900">传统网红营销方法</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">传统网红营销方法</h2>
               <div className="px-4 py-2 bg-red-100 text-red-700 rounded-lg font-bold text-sm">
                 旧方法
               </div>
@@ -732,20 +788,20 @@ const GoWildComprehensiveDemo = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-red-50 rounded-lg p-4">
                 <div className="text-sm text-red-600 mb-1">总花费</div>
-                <div className="text-3xl font-black text-red-700">¥14,800</div>
+                <div className="text-2xl sm:text-3xl font-black text-red-700">¥14,800</div>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
                 <div className="text-sm text-red-600 mb-1">总浏览量</div>
-                <div className="text-3xl font-black text-red-700">20.1万</div>
+                <div className="text-2xl sm:text-3xl font-black text-red-700">20.1万</div>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
                 <div className="text-sm text-red-600 mb-1">转化数</div>
-                <div className="text-3xl font-black text-red-700">18</div>
+                <div className="text-2xl sm:text-3xl font-black text-red-700">18</div>
                 <div className="text-xs text-red-600 mt-1">1.2% 转化率</div>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
                 <div className="text-sm text-red-600 mb-1">核销率</div>
-                <div className="text-3xl font-black text-red-700">28%</div>
+                <div className="text-2xl sm:text-3xl font-black text-red-700">28%</div>
                 <div className="text-xs text-red-600 mt-1">5 人到场</div>
               </div>
             </div>
@@ -785,9 +841,9 @@ const GoWildComprehensiveDemo = () => {
           </div>
 
           {/* GoWild AI Campaign */}
-          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl border-2 border-green-400 p-8 glow-border">
+          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl border-2 border-green-400 p-6 sm:p-8 shadow-xl">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-slate-900">GoWild AI 驱动的方法</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">GoWild AI 驱动的方法</h2>
               <div className="px-4 py-2 bg-green-600 text-white rounded-lg font-bold text-sm pulse-glow">
                 新方法
               </div>
@@ -796,22 +852,22 @@ const GoWildComprehensiveDemo = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-white rounded-lg p-4 border border-green-200">
                 <div className="text-sm text-green-600 mb-1">总花费</div>
-                <div className="text-3xl font-black text-green-700">¥5,200</div>
+                <div className="text-2xl sm:text-3xl font-black text-green-700">¥5,200</div>
                 <div className="text-xs text-green-600 mt-1">↓ 减少 65%</div>
               </div>
               <div className="bg-white rounded-lg p-4 border border-green-200">
                 <div className="text-sm text-green-600 mb-1">精准触达</div>
-                <div className="text-3xl font-black text-green-700">5.7K</div>
+                <div className="text-2xl sm:text-3xl font-black text-green-700">5.7K</div>
                 <div className="text-xs text-green-600 mt-1">仅限高价值用户</div>
               </div>
               <div className="bg-white rounded-lg p-4 border border-green-200">
                 <div className="text-sm text-green-600 mb-1">转化数</div>
-                <div className="text-3xl font-black text-green-700">2,175</div>
+                <div className="text-2xl sm:text-3xl font-black text-green-700">2,175</div>
                 <div className="text-xs text-green-600 mt-1">38.2% 转化率</div>
               </div>
               <div className="bg-white rounded-lg p-4 border border-green-200">
                 <div className="text-sm text-green-600 mb-1">核销率</div>
-                <div className="text-3xl font-black text-green-700">64.5%</div>
+                <div className="text-2xl sm:text-3xl font-black text-green-700">64.5%</div>
                 <div className="text-xs text-green-600 mt-1">1,403 人到场</div>
               </div>
             </div>
@@ -852,67 +908,56 @@ const GoWildComprehensiveDemo = () => {
         </div>
 
         {/* Dramatic Impact Stats */}
-        <div className="bg-gradient-to-r from-purple-900 to-blue-900 rounded-2xl p-12 mb-12 text-white text-center">
-          <h2 className="text-3xl font-black mb-8">最终的业务影响</h2>
-          <div className="grid grid-cols-4 gap-8">
+        <div className="bg-gradient-to-r from-purple-900 to-blue-900 rounded-2xl p-8 sm:p-12 mb-12 text-white text-center shadow-2xl">
+          <h2 className="text-2xl sm:text-3xl font-black mb-8">最终的业务影响</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             <div>
-              <div className="text-6xl font-black mb-2" style={{
-                background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>121x</div>
-              <div className="text-lg">更多转化</div>
+              <div className="text-4xl sm:text-6xl font-black mb-2 stat-gradient">121x</div>
+              <div className="text-base sm:text-lg">更多转化</div>
               <div className="text-sm text-blue-300 mt-1">(18 → 2,175)</div>
             </div>
             <div>
-              <div className="text-6xl font-black mb-2" style={{
-                background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>65%</div>
-              <div className="text-lg">更低花费</div>
+              <div className="text-4xl sm:text-6xl font-black mb-2 stat-gradient">65%</div>
+              <div className="text-base sm:text-lg">更低花费</div>
               <div className="text-sm text-blue-300 mt-1">(¥1.48万 → ¥5.2K)</div>
             </div>
             <div>
-              <div className="text-6xl font-black mb-2" style={{
-                background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>31.8x</div>
-              <div className="text-lg">更高转化率</div>
+              <div className="text-4xl sm:text-6xl font-black mb-2 stat-gradient">31.8x</div>
+              <div className="text-base sm:text-lg">更高转化率</div>
               <div className="text-sm text-blue-300 mt-1">(1.2% → 38.2%)</div>
             </div>
             <div>
-              <div className="text-6xl font-black mb-2" style={{
-                background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>4.7x</div>
-              <div className="text-lg">ROI 提升</div>
+              <div className="text-4xl sm:text-6xl font-black mb-2 stat-gradient">4.7x</div>
+              <div className="text-base sm:text-lg">ROI 提升</div>
               <div className="text-sm text-blue-300 mt-1">(0.73x → 3.4x)</div>
             </div>
           </div>
+          <style>{`
+            .stat-gradient {
+                background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .pulse-glow { animation: pulse-glow 2s infinite alternate; }
+          `}</style>
         </div>
 
         {/* The Secret Weapon: Data Monetization */}
-        <div className="bg-white rounded-2xl p-10 border-2 border-purple-300 mb-12">
-          <div className="flex items-start justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-black text-slate-900 mb-3">
+        <div className="bg-white rounded-2xl p-6 sm:p-10 border-2 border-purple-300 mb-12 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-start justify-between mb-8">
+            <div className="mb-4 sm:mb-0">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
                 等等... 还有更多
               </h2>
-              <p className="text-xl text-slate-600">
+              <p className="text-lg sm:text-xl text-slate-600">
                 您收集的数据将成为 <span className="font-bold text-purple-600">创收资产</span>
               </p>
             </div>
-            <Layers className="text-purple-600" size={64} />
+            <Layers className="text-purple-600" size={48} sm:size={64} />
           </div>
 
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-purple-50 rounded-xl p-6 border border-purple-200">
               <div className="text-purple-600 font-bold mb-2">客户档案</div>
               <div className="text-3xl font-black text-purple-900 mb-2">9,470</div>
@@ -932,7 +977,7 @@ const GoWildComprehensiveDemo = () => {
 
           <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg p-6">
             <div className="font-bold text-slate-900 mb-3">谁会购买这些数据？</div>
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div className="flex items-start">
                 <CheckCircle className="mr-2 mt-0.5 flex-shrink-0 text-green-600" size={16} />
                 <span className="text-slate-700">旅游机构 (家庭游客档案)</span>
@@ -950,42 +995,32 @@ const GoWildComprehensiveDemo = () => {
         </div>
 
       {/* Revenue Recovery Calculator */}
-        <div className="bg-gradient-to-br from-red-900 to-red-800 rounded-2xl p-10 text-white mb-12">
-          <h2 className="text-3xl font-black mb-6 text-center">
+        <div className="bg-gradient-to-br from-red-900 to-red-800 rounded-2xl p-6 sm:p-10 text-white mb-12 shadow-2xl">
+          <h2 className="text-2xl sm:text-3xl font-black mb-6 text-center">
             您已经损失了多少？
           </h2>
-          <p className="text-xl text-center text-red-200 mb-8">
+          <p className="text-lg sm:text-xl text-red-200 mb-8 text-center">
             计算您在传统营销中浪费的广告支出
           </p>
 
-          <div className="grid grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           <div>
-              <label className="block text-sm font-semibold mb-2">每月营销预算 (¥)</label>
-              {/* Added ID */}
+              <label htmlFor="monthlyBudgetInput" className="block text-sm font-semibold mb-2">每月营销预算 (¥)</label>
               <input
                 id="monthlyBudgetInput"
                 type="number"
                 placeholder="例如：15000"
-                className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg"
-                onChange={(e) => {
-                  const budget = parseInt(e.target.value) || 0;
-                  const months = parseInt(document.getElementById('timePeriodSelect').value);
-                  const loss = budget * 0.27 * months;
-                  setCalculatedLoss(loss);
-                }}
+                className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg focus:ring-red-400 focus:border-red-400"
+                onChange={handleLossCalculation}
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold mb-2">时间周期</label>
+              <label htmlFor="timePeriodSelect" className="block text-sm font-semibold mb-2">时间周期</label>
               <select 
                 id="timePeriodSelect" 
-                className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg"
-                onChange={(e) => {
-                  const budget = parseInt(document.getElementById('monthlyBudgetInput').value) || 0;
-                  const months = parseInt(e.target.value);
-                  const loss = budget * 0.27 * months;
-                  setCalculatedLoss(loss);
-                }}
+                className="w-full px-4 py-3 rounded-lg text-slate-900 font-bold text-lg focus:ring-red-400 focus:border-red-400"
+                onChange={handleLossCalculation}
+                defaultValue="6"
               >
                 <option value="6">过去 6 个月</option>
                 <option value="12">过去 12 个月</option>
@@ -995,12 +1030,12 @@ const GoWildComprehensiveDemo = () => {
           </div>
 
           {calculatedLoss > 0 && (
-            <div className="mt-8 bg-white rounded-xl p-8 text-center">
+            <div className="mt-8 bg-white rounded-xl p-6 sm:p-8 text-center shadow-lg">
               <div className="text-sm text-red-600 font-bold mb-2">预计浪费支出</div>
-              <div className="text-6xl font-black text-red-600 mb-4">
+              <div className="text-5xl sm:text-6xl font-black text-red-600 mb-4">
                 ¥{calculatedLoss.toLocaleString()}
               </div>
-              <div className="text-slate-700 text-lg">
+              <div className="text-slate-700 text-base sm:text-lg">
                 这笔钱白白烧掉了，<span className="font-bold">没有获得任何客户洞察</span>
               </div>
             </div>
@@ -1008,13 +1043,13 @@ const GoWildComprehensiveDemo = () => {
         </div>
         {/* Final CTA */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
-            <h2 className="text-4xl font-black mb-4">停止流血。启动智能。</h2>
-            <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 sm:p-12 text-white shadow-2xl">
+            <h2 className="text-3xl sm:text-4xl font-black mb-4">停止流血。启动智能。</h2>
+            <p className="text-lg sm:text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
               没有 GoWild 的每一天，都是在浪费广告支出和丢失客户洞察。
             </p>
-            <div className="flex items-center justify-center space-x-6">
-              <button className="bg-white text-blue-600 px-10 py-5 rounded-xl font-bold text-xl hover:bg-blue-50 transition-all transform hover:scale-105 shadow-2xl">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+              <button className="bg-white text-blue-600 px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl hover:bg-blue-50 transition-all transform hover:scale-105 shadow-2xl w-full sm:w-auto">
                 预约策略会议
               </button>
               <button 
@@ -1026,9 +1061,9 @@ const GoWildComprehensiveDemo = () => {
                   setMoneyBurning(0);
                   setCalculatedLoss(0);
                 }}
-                className="bg-transparent border-2 border-white text-white px-10 py-5 rounded-xl font-bold text-xl hover:bg-white hover:text-blue-600 transition-all"
+                className="bg-transparent border-2 border-white text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-lg sm:text-xl hover:bg-white hover:text-blue-600 transition-all w-full sm:w-auto"
               >
-                ↻ 重新播放演示
+                <span className='inline-flex items-center'>↻ 重新播放演示</span>
               </button>
             </div>
             <div className="mt-8 text-blue-200 text-sm flex items-center justify-center">
@@ -1051,6 +1086,4 @@ const GoWildComprehensiveDemo = () => {
   );
 };
 
-// Render the application
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<GoWildComprehensiveDemo />);
+export default App;
